@@ -8,6 +8,8 @@ import { FooterComponent } from './components/shared/footer/footer.component';
 import { HomeComponent } from './components/pages/home/home.component';
 import { TopicsComponent } from './components/pages/topics/topics.component';
 import { ResponsesComponent } from './components/pages/responses/responses.component';
+import { TopicCardComponent } from './components/shared/topic-card/topic-card.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,11 +18,13 @@ import { ResponsesComponent } from './components/pages/responses/responses.compo
     FooterComponent,
     HomeComponent,
     TopicsComponent,
-    ResponsesComponent
+    ResponsesComponent,
+    TopicCardComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

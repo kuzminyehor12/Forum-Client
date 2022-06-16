@@ -2,11 +2,7 @@
     color: white;
 }
 
-.margin-top{
-    margin-top: 2%;
-}
-
 .nav-font a:hover{
     background-color: black;
-    color: #2a853d;
+    color: #fefbb8;
 }

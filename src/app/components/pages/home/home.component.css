@@ -1,0 +1,85 @@
+.welcome{
+    width: 100%;
+    margin: auto;
+    padding: 2%;
+    font-size: 32px;
+    background-image: url("../../../../assets/—Pngtree—cartoon hand drawn yellow pet_1142225.jpg");
+    background-size: 100%;
+    font-weight: bold;
+    color: black;
+}
+
+.grid-layout{
+    width: 80%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 518px 518px 518px 518px;
+    color: white;
+    margin-top: 5%;
+    margin-left: 9%;
+    gap: 5%;
+}
+
+.card-1{
+    background-image: url("../../../../assets/image(1).png");
+    background-size: cover;
+    background-position: 75%;
+    padding-top: 40%;
+}
+
+.card-2{
+    background-image: url("../../../../assets/image.png");
+    background-size: cover;
+    background-position: 75%;
+    padding-top: 40%;
+}
+
+.card-3{
+    background-image: url("../../../../assets/image(2).png");
+    background-size: cover;
+    background-position: 75%;
+    padding-top: 40%;
+}
+
+.card-4{
+    background-image: url("../../../../assets/image(3).png");
+    background-size: cover;
+    background-position: 75%;
+    padding-top: 40%;
+}
+
+.card-5{
+    background-image: url("../../../../assets/image (5).png");
+    background-size: cover;
+    background-position: 30%;
+    padding-top: 40%;
+}
+
+.card-6{
+    background-image: url("../../../../assets/image(4).png");
+    background-size: cover;
+    background-position: 75%;
+    padding-top: 40%;
+}
+
+.card-7{
+    background-image: url("../../../../assets/image(6).png");
+    background-size: cover;
+    background-position: 75%;
+    padding-top: 40%;
+}
+
+.card-8{
+    background-image: url("../../../../assets/image (7).png");
+    background-size: cover;
+    background-position: 75%;
+    padding-top: 40%;
+}
+
+.card-hover:hover{
+    filter: brightness(150%);
+}
+
+.card-hover h1:hover{
+    text-decoration: underline;
+}
