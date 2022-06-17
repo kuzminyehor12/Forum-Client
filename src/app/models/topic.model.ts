@@ -7,6 +7,7 @@ export class Topic {
         public TopicState: number,
         public complaints: number,
         public responses: Response[]
+
     ){
 
     }

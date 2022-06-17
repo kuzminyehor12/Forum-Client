@@ -17,19 +17,19 @@ export class TopicService {
   constructor(private httpClient: HttpClient) { }
 
   createTopic(data: Topic) : Observable<Topic>{
-    return this.httpClient.post(this.url, data).pipe(catchError(this.error));
+    return this.httpClient.post(this.url, data).pipe<Topic>(catchError<any, Observable<Topic>>(this.error));
   }
 
-  getTopics() : Observable<Object>{
-    return this.httpClient.get(this.url);
+  getTopics() : Observable<Topic[]>{
+    return this.httpClient.get<Topic[]>(this.url);
   }
 
-  deleteTopic(data: Topic) : Observable<Topic>{
-    return this.httpClient.put(this.url, data);
+  updateTopic(data: Topic) : Observable<Topic>{
+    return this.httpClient.put<Topic>(this.url, data);
   }
 
-  updateTopic(id: number, data: Topic) : Observable<Topic>{
-    return this.httpClient.delete(this.url, data).pipe(catchError(this.error));
+  deleteTopic(id: number, data: Topic) : Observable<Topic>{
+    return this.httpClient.delete<Topic>(this.url).pipe<Topic>(catchError<any, Observable<Topic>>(this.error));
   }
 
   error(error: HttpErrorResponse) {

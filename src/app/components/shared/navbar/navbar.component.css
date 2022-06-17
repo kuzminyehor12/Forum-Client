@@ -6,3 +6,7 @@
     background-color: black;
     color: #fefbb8;
 }
+
+.auth-btn-hover:hover{
+	background-color: #dd7003 !important;
+}

@@ -23,13 +23,92 @@
                         <input type="text" class="form-control" placeholder="Search Topic">
                         <button type="button" class="btn btn-secondary"><img src="../../../../assets/free-icon-search-149852.png" alt="" width="25px" height="25px"></button>
                     </div>
-                </form>cd 
+                </form>
                 <div class="navbar-nav nav-font">
                     <img src="../../../../assets/user (2).png" width="35px" height="35px" alt="">
-                    <a href="#" class="nav-item nav-link">Login</a>
+                    <a href="#myModal" data-bs-toggle="modal" data-bs-target="#myModal" class="nav-item nav-link">Login</a>
                 </div>
             </div>
         </div>
     </nav>
 </div>
 
+<div class="modal fade" id="myModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <form action="">
+            <div class="modal-header">
+              <h5 class="modal-title fs-36">Login</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3 form-group required">
+                  <label for="Email">Email<span class="text-danger"> *</span></label>
+                  <input type="text" name="email" class="form-control" id="Email" placeholder="Enter Email">
+              </div>
+  
+              <div class="mb-3 form-group required">
+                  <label for="Password">Password<span class="text-danger"> *</span></label>
+                  <input type="password" name="password" class="form-control" id="Password" placeholder="Enter Password">
+              </div>
+            </div>
+            <div class="modal-footer pt-4 ">                  
+              <button type="submit" class="btn btn-brown mx-auto w-50 text-light auth-btn-hover">Login</button>
+            </div>
+            <p class="text-center">Not yet account, <a href="#signUpModal" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</a></p> 
+        </form>
+      </div>
+    </div>
+</div>
+
+<div class="modal fade" id="signUpModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <form [formGroup]="service.formModel" autocomplete="off" (submit)="onSubmit()">
+            <div class="modal-header">
+              <h5 class="modal-title fs-36">Register</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3 form-group required">
+                  <label>Email<span class="text-danger"> *</span></label>
+                  <input formControlName="Email" type="text" class="form-control" id="Email" placeholder="Enter Email" [email]="true">
+                  <label class="text-danger" *ngIf="service.formModel.controls['Email'].touched 
+                  && service.formModel.controls['Email'].invalid">Invalid Email Format</label>
+              </div>
+
+              <div class="mb-3 form-group required">
+                <label>Nickname<span class="text-danger"> *</span></label>
+                <input formControlName="Nickname" type="text" class="form-control" id="Nickname" placeholder="Enter Nickname">
+                <label class="text-danger" *ngIf="service.formModel.controls['Nickname'].touched
+                && service.formModel.controls['Nickname'].invalid">Invalid Nickname Format</label>
+              </div>
+
+              <div class="mb-3 form-group required">
+                <label>Birth Date<span class="text-danger"> *</span></label>
+                <input formControlName="BirthDate" type="date" class="form-control" id="BirthDate">
+                <label class="text-danger" *ngIf="service.formModel.controls['BirthDate'].touched
+                && service.formModel.controls['BirthDate'].invalid">Invalid Date Format</label>
+              </div>
+                <div class="mb-3 form-group required">
+                    <label>Password<span class="text-danger"> *</span></label>
+                    <input formControlName="Password" type="password" class="form-control" id="Password" placeholder="Enter Password">
+                    <label class="text-danger" *ngIf="service.formModel.get('Password')?.touched 
+                    && service.formModel.get('Password')?.invalid">Password must contain 1 digit, 1 uppercase letter and one special char. Minimum length must be 8 symbols.</label>
+                </div>
+    
+                  <div class="mb-3 form-group required">
+                    <label>Confirm Password<span class="text-danger"> *</span></label>
+                    <input formControlName="ConfirmPassword" type="password" class="form-control" id="ConfirmsPassword" placeholder="Confirm Password">
+                    <label class="text-danger" *ngIf="service.formModel.get('ConfirmPassword')?.touched 
+                    && service.formModel.get('ConfirmPassword')?.invalid">Invalid Confirmation Password</label>
+                </div>
+              </div>
+            <div class="modal-footer pt-4">                  
+              <button type="submit" class="btn btn-brown mx-auto w-50 text-light auth-btn-hover">Register</button>
+            </div>
+            <p class="text-center">Account exists, <a href="#myModal" data-bs-toggle="modal" data-bs-target="#myModal">Sign In</a></p> 
+        </form>
+      </div>
+    </div>
+</div>

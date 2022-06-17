@@ -10,6 +10,8 @@ import { TopicsComponent } from './components/pages/topics/topics.component';
 import { ResponsesComponent } from './components/pages/responses/responses.component';
 import { TopicCardComponent } from './components/shared/topic-card/topic-card.component';
 import { HttpClientModule } from '@angular/common/http';
+import { UserService } from './services/user.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,9 +26,10 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
