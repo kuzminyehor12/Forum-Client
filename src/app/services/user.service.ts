@@ -8,16 +8,23 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class UserService {
-  readonly url = 'https://localhost:44341/api/users/register';
+  readonly url = 'https://localhost:44341/api/users/';
   constructor(private httpClient: HttpClient, private form: FormBuilder) { }
 
   formModel = this.form.group({
-    Email: ['', Validators.required, Validators.email],
+    Email: ['', Validators.required],
     Nickname: ['', Validators.required],
     BirthDate: ['', Validators.required],
-    Password: ['', Validators.required ],
-    ConfirmPassword: ['', Validators.required]
+    Password: ['', Validators.required,
+     Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/g) ],
+    ConfirmPassword: ['', Validators.required,
+     Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/g)]
   }, this.matchValidator);
+
+  logFormModel = this.form.group({
+    Email: ['', Validators.required],
+    Password: ['', Validators.required]
+  })
 
   register(){
     var body = {
@@ -27,7 +34,11 @@ export class UserService {
       Password: this.formModel.value.Password
     }
 
-    return this.httpClient.post(this.url, body);
+    return this.httpClient.post(this.url + 'register', body);
+  }
+
+  login(){
+    return this.httpClient.get(this.url + 'token');
   }
 
   matchValidator(frm: FormGroup) {
@@ -35,18 +46,5 @@ export class UserService {
        ? null : {'mismatch': true};
  }
 
-  
-}
-
-export class PasswordValidator {
-
-  static passwordInvalid(control: FormControl) {
-      let passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/g;
-
-      if (!control.value.match(passwordPattern))
-          return { "passwordInvalid" :true };
-
-      return null;
-  }
 }
 

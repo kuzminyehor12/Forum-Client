@@ -8,3 +8,7 @@ body{
     background-image: url("assets/190.jpg");
     background-size: cover;
 }
+
+.btn-brown{
+    background-color: #964B00;
+}

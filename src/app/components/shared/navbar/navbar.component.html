@@ -36,7 +36,7 @@
 <div class="modal fade" id="myModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-          <form action="">
+          <form [formGroup]="service.logFormModel" (submit)="onLoginSubmit()">
             <div class="modal-header">
               <h5 class="modal-title fs-36">Login</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -44,16 +44,16 @@
             <div class="modal-body">
               <div class="mb-3 form-group required">
                   <label for="Email">Email<span class="text-danger"> *</span></label>
-                  <input type="text" name="email" class="form-control" id="Email" placeholder="Enter Email">
+                  <input formControlName="Email" type="text" name="email" class="form-control" id="Email" placeholder="Enter Email">
               </div>
   
               <div class="mb-3 form-group required">
                   <label for="Password">Password<span class="text-danger"> *</span></label>
-                  <input type="password" name="password" class="form-control" id="Password" placeholder="Enter Password">
+                  <input formControlName="Password" type="password" name="password" class="form-control" id="Password" placeholder="Enter Password">
               </div>
             </div>
             <div class="modal-footer pt-4 ">                  
-              <button type="submit" class="btn btn-brown mx-auto w-50 text-light auth-btn-hover">Login</button>
+              <button type="submit" data-bs-dismiss="modal" aria-label="Close" class="btn btn-brown mx-auto w-50 text-light auth-btn-hover">Login</button>
             </div>
             <p class="text-center">Not yet account, <a href="#signUpModal" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</a></p> 
         </form>
@@ -64,7 +64,7 @@
 <div class="modal fade" id="signUpModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-          <form [formGroup]="service.formModel" autocomplete="off" (submit)="onSubmit()">
+          <form [formGroup]="service.formModel" autocomplete="off" (submit)="onRegisterSubmit()">
             <div class="modal-header">
               <h5 class="modal-title fs-36">Register</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -94,18 +94,18 @@
                     <label>Password<span class="text-danger"> *</span></label>
                     <input formControlName="Password" type="password" class="form-control" id="Password" placeholder="Enter Password">
                     <label class="text-danger" *ngIf="service.formModel.get('Password')?.touched 
-                    && service.formModel.get('Password')?.invalid">Password must contain 1 digit, 1 uppercase letter and one special char. Minimum length must be 8 symbols.</label>
+                    && (service.formModel.get('Password')?.invalid || service.formModel.get('Password')?.getError('pattern'))">Password must contain 1 digit, 1 uppercase letter and one special char. Minimum length must be 8 symbols.</label>
                 </div>
     
                   <div class="mb-3 form-group required">
                     <label>Confirm Password<span class="text-danger"> *</span></label>
                     <input formControlName="ConfirmPassword" type="password" class="form-control" id="ConfirmsPassword" placeholder="Confirm Password">
                     <label class="text-danger" *ngIf="service.formModel.get('ConfirmPassword')?.touched 
-                    && service.formModel.get('ConfirmPassword')?.invalid">Invalid Confirmation Password</label>
+                    && (service.formModel.get('ConfirmPassword')?.invalid || service.formModel.get('ConfirmPassword')?.getError('mismatch'))">Invalid Confirmation Password</label>
                 </div>
               </div>
             <div class="modal-footer pt-4">                  
-              <button type="submit" class="btn btn-brown mx-auto w-50 text-light auth-btn-hover">Register</button>
+              <button type="submit" class="btn btn-brown mx-auto w-50 text-light auth-btn-hover auth-btn-disabled"  data-bs-dismiss="modal" aria-label="Close">Register</button>
             </div>
             <p class="text-center">Account exists, <a href="#myModal" data-bs-toggle="modal" data-bs-target="#myModal">Sign In</a></p> 
         </form>

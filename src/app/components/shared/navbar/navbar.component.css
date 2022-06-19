@@ -10,3 +10,7 @@
 .auth-btn-hover:hover{
 	background-color: #dd7003 !important;
 }
+
+.auth-btn-disabled:disabled{
+    background-color: #4b2602 !important;
+}

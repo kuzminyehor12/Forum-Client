@@ -14,7 +14,27 @@ export class NavbarComponent implements OnInit {
     this.service.formModel.reset();
   }
 
-  onSubmit(){
+  onLoginSubmit(){
+    this.service.login().subscribe(
+      (res:any) => {
+        if(res.succeded){
+          this.service.formModel.reset();
+        }
+        else{
+          res.errors.array.forEach((element: any) => {
+            console.log(element);
+            alert('You were logged in successfully!');
+          });
+        }
+    },
+    err => {
+      console.log(err);
+      alert('There was a problem with logging in you. Try again!');
+    }
+    )
+  }
+
+  onRegisterSubmit(){
     this.service.register().subscribe(
       (res:any) => {
           if(res.succeded){
@@ -23,11 +43,13 @@ export class NavbarComponent implements OnInit {
           else{
             res.errors.array.forEach((element: any) => {
               console.log(element);
+              alert('You were registered successfully!');
             });
           }
       },
       err => {
         console.log(err);
+        alert('There was a problem with registering you. Try again!');
       }
     );
   }

@@ -1,1 +1,40 @@
+<div class="container">
+    <div class="row">
+        <div class="tags col-4">
+            <a class="btn tag-btn text-center" *ngFor="let item of tags">{{item.name}}</a>
+        </div>
+        <div class="col-3"></div>
+        <div class="col-5" style="margin-top: 10%">
+            <a href="#topicModal"  data-bs-toggle="modal" data-bs-target="#topicModal" class="btn btn-primary">Create Topic</a>
+            <a class="btn sort-left-btn sort-hover">Sort By Publication Date</a>
+            <a class="btn sort-right-btn sort-hover">Sort By Likes</a>
+        </div>
+    </div>
+</div>
 
+<div class="modal fade" id="topicModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <form >
+            <div class="modal-header">
+              <h5 class="modal-title fs-36">Create Topic</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3 form-group required">
+                  <label for="Title">Title<span class="text-danger"> *</span></label>
+                  <input type="text" name="title" class="form-control" id="Title" placeholder="Enter Topic Title">
+              </div>
+  
+              <div class="mb-3 form-group required">
+                  <label for="Description">Description<span class="text-danger"> *</span></label>
+                  <input type="text" name="description" class="form-control" id="Description" placeholder="Enter Topic Description">
+              </div>
+            </div>
+            <div class="modal-footer pt-4 ">                  
+              <button type="submit" data-bs-dismiss="modal" aria-label="Close" class="btn btn-brown mx-auto w-50 text-light auth-btn-hover">Confirm Creation</button>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>

@@ -12,7 +12,7 @@ import { Topic } from '../models/topic.model';
   providedIn: 'root'
 })
 export class TopicService {
-  url: string = 'https://localhost:44341/api/topics';
+  readonly url: string = 'https://localhost:44341/api/topics/';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   constructor(private httpClient: HttpClient) { }
 
