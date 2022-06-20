@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AbstractControl, Form, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, Form, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 
@@ -8,6 +8,7 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class UserService {
+  private options = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
   readonly url = 'https://localhost:44341/api/users/';
   constructor(private httpClient: HttpClient, private form: FormBuilder) { }
 
@@ -15,16 +16,9 @@ export class UserService {
     Email: ['', Validators.required],
     Nickname: ['', Validators.required],
     BirthDate: ['', Validators.required],
-    Password: ['', Validators.required,
-     Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/g) ],
-    ConfirmPassword: ['', Validators.required,
-     Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/g)]
+    Password: ['', Validators.required],
+    ConfirmPassword: ['', Validators.required]
   }, this.matchValidator);
-
-  logFormModel = this.form.group({
-    Email: ['', Validators.required],
-    Password: ['', Validators.required]
-  })
 
   register(){
     var body = {
@@ -34,17 +28,22 @@ export class UserService {
       Password: this.formModel.value.Password
     }
 
-    return this.httpClient.post(this.url + 'register', body);
+    return this.httpClient.post(this.url + 'register', body, this.options);
   }
 
-  login(){
-    return this.httpClient.get(this.url + 'token');
+  login(email: string, password: string){
+    return this.httpClient.post(this.url + 'token', {Email: email, Password: password}, this.options);
   }
 
-  matchValidator(frm: FormGroup) {
-    return frm.get('Password')?.value === frm.get('ConfirmPassword')?.value
-       ? null : {'mismatch': true};
+  matchValidator(frm: AbstractControl) : ValidationErrors | null {
+    return this.formModel.get('Password')?.value === this.formModel.get('ConfirmPassword')?.value
+       ? null : { mismatch: true };
  }
 
+ 
+ public get isLoggedIn() : boolean{
+  return localStorage.getItem('token') != null 
+  && localStorage.getItem('token') != undefined;
+ }
 }
 

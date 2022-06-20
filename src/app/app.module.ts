@@ -12,6 +12,8 @@ import { TopicCardComponent } from './components/shared/topic-card/topic-card.co
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from './services/user.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { JwtModule } from '@auth0/angular-jwt';
+import { config } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('token');
+        },
+        allowedDomains: ['localhost:44341'],
+      }
+    })
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

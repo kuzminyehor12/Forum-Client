@@ -24,10 +24,23 @@
                         <button type="button" class="btn btn-secondary"><img src="../../../../assets/free-icon-search-149852.png" alt="" width="25px" height="25px"></button>
                     </div>
                 </form>
-                <div class="navbar-nav nav-font">
-                    <img src="../../../../assets/user (2).png" width="35px" height="35px" alt="">
-                    <a href="#myModal" data-bs-toggle="modal" data-bs-target="#myModal" class="nav-item nav-link">Login</a>
-                </div>
+                <ng-template [ngIf]="!this.service.isLoggedIn" [ngIfElse]="loggedOut">
+                  <div class="navbar-nav nav-font">
+                      <img src="../../../../assets/user (2).png" width="35px" height="35px" alt="">
+                      <a href="#myModal" data-bs-toggle="modal" data-bs-target="#myModal" class="nav-item nav-link">Login</a>
+                  </div>
+                </ng-template>
+                <ng-template #loggedOut>
+                  <div class="navbar-nav nav-font" style="margin-right: 6.5%;">
+                    <img src="../../../../assets/writer.png" width="35px" height="35px" alt="">
+                    <div class="nav-item dropdown">
+                      <a data-bs-toggle="dropdown" class="nav-link dropdown-toggle">Profile</a>
+                      <div class="dropdown-menu bg-black nav-font">
+                        <a (click)="logout()" class="dropdown-item">Logout</a>
+                     </div>
+                    </div>
+                  </div>
+                </ng-template>
             </div>
         </div>
     </nav>
@@ -36,7 +49,7 @@
 <div class="modal fade" id="myModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-          <form [formGroup]="service.logFormModel" (submit)="onLoginSubmit()">
+          <form (submit)="onLoginSubmit()">
             <div class="modal-header">
               <h5 class="modal-title fs-36">Login</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -44,12 +57,12 @@
             <div class="modal-body">
               <div class="mb-3 form-group required">
                   <label for="Email">Email<span class="text-danger"> *</span></label>
-                  <input formControlName="Email" type="text" name="email" class="form-control" id="Email" placeholder="Enter Email">
+                  <input [(ngModel)]="email" [ngModelOptions]="{standalone: true}" type="text" name="authemail" class="form-control" id="AuthEmail" placeholder="Enter Email">
               </div>
   
               <div class="mb-3 form-group required">
                   <label for="Password">Password<span class="text-danger"> *</span></label>
-                  <input formControlName="Password" type="password" name="password" class="form-control" id="Password" placeholder="Enter Password">
+                  <input [(ngModel)]="password" [ngModelOptions]="{standalone: true}" type="password" name="authpassword" class="form-control" id="AuthPassword" placeholder="Enter Password">
               </div>
             </div>
             <div class="modal-footer pt-4 ">                  
@@ -94,14 +107,14 @@
                     <label>Password<span class="text-danger"> *</span></label>
                     <input formControlName="Password" type="password" class="form-control" id="Password" placeholder="Enter Password">
                     <label class="text-danger" *ngIf="service.formModel.get('Password')?.touched 
-                    && (service.formModel.get('Password')?.invalid || service.formModel.get('Password')?.getError('pattern'))">Password must contain 1 digit, 1 uppercase letter and one special char. Minimum length must be 8 symbols.</label>
+                    && (service.formModel.get('Password')?.errors?.['required'] || service.formModel.get('Password')?.errors?.['pattern'])">Password must contain 1 digit, 1 uppercase letter and one special char. Minimum length must be 8 symbols.</label>
                 </div>
     
                   <div class="mb-3 form-group required">
                     <label>Confirm Password<span class="text-danger"> *</span></label>
                     <input formControlName="ConfirmPassword" type="password" class="form-control" id="ConfirmsPassword" placeholder="Confirm Password">
                     <label class="text-danger" *ngIf="service.formModel.get('ConfirmPassword')?.touched 
-                    && (service.formModel.get('ConfirmPassword')?.invalid || service.formModel.get('ConfirmPassword')?.getError('mismatch'))">Invalid Confirmation Password</label>
+                    && (service.formModel.get('ConfirmPassword')?.errors?.['required'] || service.formModel.get('ConfirmPassword')?.errors?.['mismatch'])">Invalid Confirmation Password</label>
                 </div>
               </div>
             <div class="modal-footer pt-4">                  

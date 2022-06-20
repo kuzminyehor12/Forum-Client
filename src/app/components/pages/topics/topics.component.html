@@ -5,7 +5,9 @@
         </div>
         <div class="col-3"></div>
         <div class="col-5" style="margin-top: 10%">
+          <ng-container *ngIf="this.userService.isLoggedIn">
             <a href="#topicModal"  data-bs-toggle="modal" data-bs-target="#topicModal" class="btn btn-primary">Create Topic</a>
+          </ng-container>
             <a class="btn sort-left-btn sort-hover">Sort By Publication Date</a>
             <a class="btn sort-right-btn sort-hover">Sort By Likes</a>
         </div>
@@ -15,7 +17,7 @@
 <div class="modal fade" id="topicModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-          <form >
+          <form [formGroup]="this.topicService.form" (submit)="createTopic()">
             <div class="modal-header">
               <h5 class="modal-title fs-36">Create Topic</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -23,12 +25,12 @@
             <div class="modal-body">
               <div class="mb-3 form-group required">
                   <label for="Title">Title<span class="text-danger"> *</span></label>
-                  <input type="text" name="title" class="form-control" id="Title" placeholder="Enter Topic Title">
+                  <input formControlName="Title" type="text" name="title" class="form-control" id="Title" placeholder="Enter Topic Title">
               </div>
   
               <div class="mb-3 form-group required">
                   <label for="Description">Description<span class="text-danger"> *</span></label>
-                  <input type="text" name="description" class="form-control" id="Description" placeholder="Enter Topic Description">
+                  <textarea formControlName="Description" name="Description" class="md-textarea form-control" cols="40" rows="5"></textarea>
               </div>
             </div>
             <div class="modal-footer pt-4 ">                  

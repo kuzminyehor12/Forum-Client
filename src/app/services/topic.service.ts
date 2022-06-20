@@ -7,29 +7,47 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import { Topic } from '../models/topic.model';
+import { FormBuilder, Validators } from '@angular/forms';
+import { UserService } from './user.service';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TopicService {
+  private options = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
   readonly url: string = 'https://localhost:44341/api/topics/';
-  headers = new HttpHeaders().set('Content-Type', 'application/json');
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, 
+    private formBuilder:FormBuilder,
+     private userService: UserService) { }
 
-  createTopic(data: Topic) : Observable<Topic>{
-    return this.httpClient.post(this.url, data).pipe<Topic>(catchError<any, Observable<Topic>>(this.error));
+  form = this.formBuilder.group({
+    Title: ['', Validators.required],
+    Description: ['', Validators.required]
+  })
+
+  createTopic() : Observable<Topic>{
+    let authorId = JSON.parse(localStorage.getItem('user')!).Id;
+    var body = {
+      Title: this.form.value.Title,
+      Description: this.form.value.Description,
+      PublicationDate: new DatePipe(new Date().toDateString(), 'YYYY-MM-DD'),
+      AuthorId: authorId
+    }
+
+    return this.httpClient.post<Topic>(this.url, body, this.options);
   }
 
   getTopics() : Observable<Topic[]>{
-    return this.httpClient.get<Topic[]>(this.url);
+    return this.httpClient.get<Topic[]>(this.url, this.options);
   }
 
   updateTopic(data: Topic) : Observable<Topic>{
-    return this.httpClient.put<Topic>(this.url, data);
+    return this.httpClient.put<Topic>(this.url, data, this.options);
   }
 
   deleteTopic(id: number, data: Topic) : Observable<Topic>{
-    return this.httpClient.delete<Topic>(this.url).pipe<Topic>(catchError<any, Observable<Topic>>(this.error));
+    return this.httpClient.delete<Topic>(this.url, this.options).pipe<Topic>(catchError<any, Observable<Topic>>(this.error));
   }
 
   error(error: HttpErrorResponse) {
