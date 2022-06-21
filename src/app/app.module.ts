@@ -9,11 +9,15 @@ import { HomeComponent } from './components/pages/home/home.component';
 import { TopicsComponent } from './components/pages/topics/topics.component';
 import { ResponsesComponent } from './components/pages/responses/responses.component';
 import { TopicCardComponent } from './components/shared/topic-card/topic-card.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserService } from './services/user.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
 import { config } from 'rxjs';
+import { TopicService } from './services/topic.service';
+import { ResponseService } from './services/response.service';
+import { CommentService } from './services/comment.service';
+import { AuthInterceptor } from './services/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -35,12 +39,21 @@ import { config } from 'rxjs';
       config: {
         tokenGetter: () => {
           return localStorage.getItem('token');
-        },
-        allowedDomains: ['localhost:44341'],
+        }
       }
     })
   ],
-  providers: [UserService],
+  providers: [
+    UserService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    TopicService,
+    ResponseService,
+    CommentService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

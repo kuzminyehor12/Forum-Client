@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AbstractControl, Form, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { flatMap, Observable } from 'rxjs';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -10,7 +11,9 @@ import { User } from '../models/user.model';
 export class UserService {
   private options = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
   readonly url = 'https://localhost:44341/api/users/';
-  constructor(private httpClient: HttpClient, private form: FormBuilder) { }
+  constructor(private httpClient: HttpClient, 
+    private form: FormBuilder,
+    private jwtHelperService: JwtHelperService) { }
 
   formModel = this.form.group({
     Email: ['', Validators.required],
@@ -18,7 +21,7 @@ export class UserService {
     BirthDate: ['', Validators.required],
     Password: ['', Validators.required],
     ConfirmPassword: ['', Validators.required]
-  }, this.matchValidator);
+  });
 
   register(){
     var body = {
@@ -35,15 +38,20 @@ export class UserService {
     return this.httpClient.post(this.url + 'token', {Email: email, Password: password}, this.options);
   }
 
-  matchValidator(frm: AbstractControl) : ValidationErrors | null {
-    return this.formModel.get('Password')?.value === this.formModel.get('ConfirmPassword')?.value
-       ? null : { mismatch: true };
+  passwordCorrection() : boolean{
+    let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+    return passwordRegex.test(this.formModel.get('Password')?.value!);
+  }
+
+  matchValidator() : boolean {
+    return this.formModel.get('Password')?.value === this.formModel.get('ConfirmPassword')?.value;
  }
 
  
  public get isLoggedIn() : boolean{
-  return localStorage.getItem('token') != null 
-  && localStorage.getItem('token') != undefined;
+  const token = localStorage.getItem("token");
+ 
+  return token != undefined && !this.jwtHelperService.isTokenExpired(token);
  }
 }
 

@@ -24,26 +24,24 @@ export class NavbarComponent implements OnInit {
        localStorage.setItem('token', res.token);
        localStorage.setItem('user', res.user);
        alert('You`re logged in successfully.');
-    },
-    err => {
-      console.log(err);
-      alert('There was a problem with logging in you. Try again!');
-    }
+      },
+      err => {
+        console.log(err);
+        alert('There was a problem with logging in you. Try again!');
+      }
     )
   }
 
   onRegisterSubmit(){
     this.service.register().subscribe(
       (res:any) => {
-          if(res.succeded){
+          if(res == 'Success Registered'){
             this.service.formModel.reset();
             alert('You were registered successfully!\nLogin to enter the system.');
           }
           else{
-            res.errors.array.forEach((element: any) => {
-              console.log(element);
-              alert('There was a problem with registering you. Try again!');
-            });
+            console.log(res);
+            alert('There was a problem with registering you. Try again!');
           }
       },
       err => {

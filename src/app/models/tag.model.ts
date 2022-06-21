@@ -1,5 +1,5 @@
 export class Tag {
-    constructor(public Id: number,
+    constructor(public id: number,
         public name: string){ 
             
         }

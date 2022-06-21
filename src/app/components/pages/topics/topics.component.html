@@ -26,12 +26,26 @@
               <div class="mb-3 form-group required">
                   <label for="Title">Title<span class="text-danger"> *</span></label>
                   <input formControlName="Title" type="text" name="title" class="form-control" id="Title" placeholder="Enter Topic Title">
+                  <label class="text-danger" *ngIf="topicService.form.controls['Title'].touched 
+                  && topicService.form.controls['Title'].invalid">Title is required</label>
               </div>
   
               <div class="mb-3 form-group required">
                   <label for="Description">Description<span class="text-danger"> *</span></label>
                   <textarea formControlName="Description" name="Description" class="md-textarea form-control" cols="40" rows="5"></textarea>
+                  <label class="text-danger" *ngIf="topicService.form.controls['Description'].touched 
+                  && topicService.form.controls['Description'].invalid">Description is required</label>
               </div>
+
+              <div class="mb-3 form-group required">
+                <label for="Tags">Tags<span class="text-danger"> *</span></label><br>
+                <ng-container *ngFor="let item of tags">
+                  <input class="form-check-input" [value]="item.id" (click)="pushTag($event)" style="margin-left: 5px;" type="checkbox">
+                  <label style="margin-left: 5px; font-size: 16px;" for="checkbox">{{item.name}}</label>
+                </ng-container>
+                
+            </div>
+
             </div>
             <div class="modal-footer pt-4 ">                  
               <button type="submit" data-bs-dismiss="modal" aria-label="Close" class="btn btn-brown mx-auto w-50 text-light auth-btn-hover">Confirm Creation</button>

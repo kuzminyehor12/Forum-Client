@@ -17,25 +17,31 @@ import { DatePipe } from '@angular/common';
 export class TopicService {
   private options = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
   readonly url: string = 'https://localhost:44341/api/topics/';
+
   constructor(private httpClient: HttpClient, 
     private formBuilder:FormBuilder,
      private userService: UserService) { }
 
   form = this.formBuilder.group({
     Title: ['', Validators.required],
-    Description: ['', Validators.required]
+    Description: ['', Validators.required],
   })
 
   createTopic() : Observable<Topic>{
     let authorId = JSON.parse(localStorage.getItem('user')!).Id;
+
     var body = {
       Title: this.form.value.Title,
       Description: this.form.value.Description,
       PublicationDate: new DatePipe(new Date().toDateString(), 'YYYY-MM-DD'),
-      AuthorId: authorId
+      AuthorId: authorId,
     }
 
     return this.httpClient.post<Topic>(this.url, body, this.options);
+  }
+
+  createBonds(body: Object){
+    return this.httpClient.post(this.url + 'tag', body, this.options);
   }
 
   getTopics() : Observable<Topic[]>{

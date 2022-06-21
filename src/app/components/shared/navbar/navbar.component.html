@@ -106,19 +106,19 @@
                 <div class="mb-3 form-group required">
                     <label>Password<span class="text-danger"> *</span></label>
                     <input formControlName="Password" type="password" class="form-control" id="Password" placeholder="Enter Password">
-                    <label class="text-danger" *ngIf="service.formModel.get('Password')?.touched 
-                    && (service.formModel.get('Password')?.errors?.['required'] || service.formModel.get('Password')?.errors?.['pattern'])">Password must contain 1 digit, 1 uppercase letter and one special char. Minimum length must be 8 symbols.</label>
+                    <label class="text-danger" *ngIf="service.formModel.get('ConfirmPassword')?.touched 
+                    && !service.passwordCorrection()">Password must contain 1 digit, 1 uppercase letter and one special char. Minimum length must be 8 symbols.</label>
                 </div>
     
                   <div class="mb-3 form-group required">
                     <label>Confirm Password<span class="text-danger"> *</span></label>
                     <input formControlName="ConfirmPassword" type="password" class="form-control" id="ConfirmsPassword" placeholder="Confirm Password">
                     <label class="text-danger" *ngIf="service.formModel.get('ConfirmPassword')?.touched 
-                    && (service.formModel.get('ConfirmPassword')?.errors?.['required'] || service.formModel.get('ConfirmPassword')?.errors?.['mismatch'])">Invalid Confirmation Password</label>
+                    && !service.matchValidator()">Invalid Confirmation Password</label>
                 </div>
               </div>
             <div class="modal-footer pt-4">                  
-              <button type="submit" class="btn btn-brown mx-auto w-50 text-light auth-btn-hover auth-btn-disabled"  data-bs-dismiss="modal" aria-label="Close">Register</button>
+              <button [disabled]="!service.matchValidator() || !service.passwordCorrection()" type="submit" class="btn btn-brown mx-auto w-50 text-light auth-btn-hover auth-btn-disabled"  data-bs-dismiss="modal" aria-label="Close">Register</button>
             </div>
             <p class="text-center">Account exists, <a href="#myModal" data-bs-toggle="modal" data-bs-target="#myModal">Sign In</a></p> 
         </form>
