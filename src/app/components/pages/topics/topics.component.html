@@ -1,17 +1,37 @@
 <div class="container">
     <div class="row">
         <div class="tags col-4">
-            <a class="btn tag-btn text-center" *ngFor="let item of tags">{{item.name}}</a>
+            <a (click)="defineTagId(item.id)"class="btn tag-btn text-center tag-hover" *ngFor="let item of tags">{{item.name}}</a>
         </div>
         <div class="col-3"></div>
         <div class="col-5" style="margin-top: 10%">
           <ng-container *ngIf="this.userService.isLoggedIn">
             <a href="#topicModal"  data-bs-toggle="modal" data-bs-target="#topicModal" class="btn btn-primary">Create Topic</a>
           </ng-container>
-            <a class="btn sort-left-btn sort-hover">Sort By Publication Date</a>
-            <a class="btn sort-right-btn sort-hover">Sort By Likes</a>
+            <a (click)="this.sorting = 1" class="btn sort-left-btn sort-hover">Sort By Publication Date</a>
+            <a (click)="this.sorting = 2" class="btn sort-right-btn sort-hover">Sort By Likes</a>
         </div>
     </div>
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+          <ul class="list-group shadow" *ngFor="let item of topics | searchPipe | filterWithTags: this.tagId | sorted: this.sorting">
+              <li class="list-group-item mt-3 topic-card">
+                  <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                      <div class="media-body order-2 order-lg-1">
+                          <h2 class="mt-0 font-weight-bold mb-2">{{item.title}}</h2>
+                          <p class="font-italic text-muted mb-0 fs-44">{{item.description}}</p>
+                          <div class="d-flex align-items-center justify-content-between mt-1">
+                              <h6 class="font-weight-bold my-2">{{dateConverter(item.publicationDate)}}</h6>
+                              <div class="icons">
+                                <img style="width: 35px; height: 35px;" (click)="like()" class="heart-icon" src="../../../../assets/premium-icon-heart-2589197.png" alt="">
+                                <img style="width: 35px; height: 35px;" (click)="complain()" class="complaint-icon" src="../../../../assets/free-icon-complaint-1997401.png" alt="">
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </li>
+          </ul>
+      </div>
 </div>
 
 <div class="modal fade" id="topicModal" tabindex="-1" aria-hidden="true">

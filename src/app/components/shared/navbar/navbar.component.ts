@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 export class NavbarComponent implements OnInit {
   email = '';
   password = '';
+  searchText = '';
 
   constructor(public service: UserService) { }
 
@@ -35,7 +36,7 @@ export class NavbarComponent implements OnInit {
   onRegisterSubmit(){
     this.service.register().subscribe(
       (res:any) => {
-          if(res == 'Success Registered'){
+          if(res){
             this.service.formModel.reset();
             alert('You were registered successfully!\nLogin to enter the system.');
           }
@@ -54,5 +55,9 @@ export class NavbarComponent implements OnInit {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+  }
+
+  writeSearchString(){
+    localStorage.setItem('searchString', this.searchText);
   }
 }

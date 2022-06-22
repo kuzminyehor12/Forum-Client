@@ -18,6 +18,9 @@ import { TopicService } from './services/topic.service';
 import { ResponseService } from './services/response.service';
 import { CommentService } from './services/comment.service';
 import { AuthInterceptor } from './services/auth.interceptor';
+import { SearchTextPipe } from './pipes/search-text.pipe';
+import { FilterWithTagsPipe } from './pipes/filter-tags.pipe';
+import { SortingPipe } from './pipes/sort-topics.pipe';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { AuthInterceptor } from './services/auth.interceptor';
     HomeComponent,
     TopicsComponent,
     ResponsesComponent,
-    TopicCardComponent
+    TopicCardComponent,
+    SearchTextPipe,
+    FilterWithTagsPipe,
+    SortingPipe
   ],
   imports: [
     BrowserModule,

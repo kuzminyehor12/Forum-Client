@@ -36,3 +36,11 @@
 .auth-btn-disabled:disabled{
     background-color: #4b2602 !important;
 }
+
+.topic-card:hover{
+    background-color: rgb(197, 194, 194);
+}
+
+.tag-hover:hover{
+    background-color: #9f5204;
+}

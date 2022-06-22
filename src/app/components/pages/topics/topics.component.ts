@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
 import { Form, FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { sequenceEqual } from 'rxjs';
 import { Tag } from 'src/app/models/tag.model';
@@ -16,6 +17,9 @@ export class TopicsComponent implements OnInit {
   tags!: Tag[];
   topics!: Topic[];
   selectedTagIds: number[];
+  searchString!: string | null;
+  tagId!: number;
+  sorting!: number;
 
   constructor(public topicService: TopicService, 
     public tagService: TagService, 
@@ -27,6 +31,8 @@ export class TopicsComponent implements OnInit {
     this.getTags();
     this.getTopics();
     this.clearTagIds();
+    localStorage.removeItem('searchString');
+    this.sorting = 0;
   }
 
   pushTag(event: any){
@@ -81,15 +87,20 @@ export class TopicsComponent implements OnInit {
     }
   }
 
+  dateConverter(date: Date){
+    let pipe: DatePipe = new DatePipe('en-US');
+    return pipe.transform(date, 'EEEE, MMMM d, y');
+  }
+
   createTopic(){
      if(this.topicService.form.invalid){
       alert('You need to fulfil all fields of form!');
      }
      else{
-      this.createBonds();
       this.topicService.createTopic().subscribe(
         res =>{
           alert('Topic has been created successfully!');
+          this.createBonds();
           this.clearTagIds();
         },
         error =>{
@@ -98,5 +109,17 @@ export class TopicsComponent implements OnInit {
         } 
       )
      }
+  }
+
+  defineTagId(tagId: any){
+    this.tagId = tagId;
+  }
+
+  like(){
+
+  }
+
+  complain(){
+
   }
 }

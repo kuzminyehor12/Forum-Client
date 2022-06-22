@@ -6,8 +6,7 @@ export class Topic {
         public publicationDate: Date,
         public TopicState: number,
         public complaints: number,
-        public responses: Response[]
-
+        public responses: Response[],
     ){
 
     }

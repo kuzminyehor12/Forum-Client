@@ -27,21 +27,21 @@ export class TopicService {
     Description: ['', Validators.required],
   })
 
-  createTopic() : Observable<Topic>{
-    let authorId = JSON.parse(localStorage.getItem('user')!).Id;
+  createTopic(){
+    let authorId: number = Number(JSON.parse(localStorage.getItem('user')!).Id);
 
     var body = {
       Title: this.form.value.Title,
       Description: this.form.value.Description,
-      PublicationDate: new DatePipe(new Date().toDateString(), 'YYYY-MM-DD'),
-      AuthorId: authorId,
+      PublicationDate: new Date(),
+      AuthorId: authorId
     }
 
-    return this.httpClient.post<Topic>(this.url, body, this.options);
+    return this.httpClient.post(this.url, body, this.options).pipe<Topic>(catchError<any, Observable<Topic>>(this.error));
   }
 
   createBonds(body: Object){
-    return this.httpClient.post(this.url + 'tag', body, this.options);
+    return this.httpClient.post(this.url + 'tag', body, this.options).pipe<Topic>(catchError<any, Observable<Topic>>(this.error));
   }
 
   getTopics() : Observable<Topic[]>{
@@ -49,7 +49,7 @@ export class TopicService {
   }
 
   updateTopic(data: Topic) : Observable<Topic>{
-    return this.httpClient.put<Topic>(this.url, data, this.options);
+    return this.httpClient.put<Topic>(this.url, data, this.options).pipe<Topic>(catchError<any, Observable<Topic>>(this.error));
   }
 
   deleteTopic(id: number, data: Topic) : Observable<Topic>{
