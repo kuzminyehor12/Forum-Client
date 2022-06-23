@@ -1,0 +1,22 @@
+.sort-left-btn{
+    margin-top: 2%;
+    margin-left: 17%;
+    background-color: rgb(208, 206, 205);
+    border-radius: 10px 0 0 10px !important;
+    border: 1px solid black;
+}
+
+.sort-right-btn{
+    margin-top: 2%;
+    background-color: rgb(208, 206, 205);
+    border-radius: 0 10px 10px 0!important;
+    border: 1px solid black;
+}
+
+.sort-hover:hover{
+    background-color: rgb(145, 143, 143);
+}
+
+.text-underline:hover{
+    text-decoration: underline;
+}

@@ -1,1 +1,54 @@
-<p>topic-card works!</p>
+<div class="row" >
+    <div class="col-lg-8 mx-auto">
+        <ul class="list-group shadow">
+            <li class="list-group-item mt-3 topic-card">
+                <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                    <div class="media-body order-2 order-lg-1">
+                        <h2 class="mt-0 font-weight-bold mb-2">{{this.topic.title}}</h2>
+                        <p class="font-italic text-muted mb-0 fs-44">{{this.topic.description}}</p>
+                        <div class="d-flex align-items-center justify-content-between mt-1">
+                            <h6 class="font-weight-bold my-2">{{this.topic.publicationDate | dateConverter: 'EEEE, MMMM d, y'}}</h6>
+                            <ng-container *ngIf="this.userService.isLoggedIn">
+                                <a (click)="readyToCreate = true"  class="btn btn-primary btn-lg">Create Response</a>
+                             </ng-container>
+                             <h6 class="font-weight-bold my-2 text-underline">by {{this.author.nickname}}</h6>
+                            <div class="icons">
+                                <ng-template [ngIf]="hasLike" [ngIfElse]="unliked">
+                                    <img style="width: 35px; height: 35px;" class="heart-icon" src="../../../../assets/premium-icon-heart-2589054.png" (click)="removeLikeFromTopic()" alt="">
+                                </ng-template>
+                                <ng-template #unliked>
+                                    <img style="width: 35px; height: 35px;" class="heart-icon" src="../../../../assets/premium-icon-heart-2589197.png" (click)="likeTopic()" alt="">
+                                </ng-template>
+                              <img style="width: 35px; height: 35px;" class="heart-icon" src="../../../../assets/free-icon-complaint-1997401.png" (click)="complainAboutTopic()" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+</div>
+
+<div class="d-flex">
+    <a (click)="this.sorting = 1" class="btn sort-left-btn sort-hover">Sort By Publication Date</a>
+    <a (click)="this.sorting = 2" class="btn sort-right-btn sort-hover">Sort By Likes</a>
+</div>
+
+<div class="row" >
+    <div class="col-lg-8 mx-auto">
+        <ul class="list-group" *ngFor="let item of responses | sorted: this.sorting">
+            <app-response-card [response]="item"></app-response-card>
+        </ul>
+</div>
+
+<ng-container *ngIf="readyToCreate">
+    <div>
+        <textarea [(ngModel)]="text" [ngModelOptions]="{standalone: true}" name="text" id="Text" cols="5" rows="7" class="form-control" style="width: 50%; margin-left: 18%; margin-top: 1%;" placeholder="Response Text"></textarea>
+        <div class="d-inline">
+            <button (click)="readyToCreate = false" class="btn btn-large btn-primary text-center" style="width: 7%; height: 45px; margin-left: 53%; margin-top: 1%">Cancel</button>
+            <button (click)="createResponse()" class="btn btn-large btn-primary text-center" style="width: 7%; height: 45px; margin-left: 61%; margin-top: -5%">Submit</button>
+        </div>
+    </div>   
+</ng-container>
+
+
+

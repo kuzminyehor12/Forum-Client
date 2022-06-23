@@ -14,17 +14,17 @@
     </div>
     <div class="row">
       <div class="col-lg-8 mx-auto">
-          <ul class="list-group shadow" *ngFor="let item of topics | searchPipe | filterWithTags: this.tagId | sorted: this.sorting">
-              <li class="list-group-item mt-3 topic-card">
+          <ul class="list-group" *ngFor="let item of topics | searchPipe | filterWithTags: this.tagId | sorted: this.sorting">
+              <li [routerLink]="['/topics/' + item.id]" class="list-group-item mt-3 topic-card">
                   <div class="media align-items-lg-center flex-column flex-lg-row p-3">
                       <div class="media-body order-2 order-lg-1">
                           <h2 class="mt-0 font-weight-bold mb-2">{{item.title}}</h2>
                           <p class="font-italic text-muted mb-0 fs-44">{{item.description}}</p>
                           <div class="d-flex align-items-center justify-content-between mt-1">
-                              <h6 class="font-weight-bold my-2">{{dateConverter(item.publicationDate)}}</h6>
+                              <h6 class="font-weight-bold my-2">{{item.publicationDate | dateConverter: 'EEEE, MMMM d, y'}}</h6>
                               <div class="icons">
-                                <img style="width: 35px; height: 35px;" (click)="like()" class="heart-icon" src="../../../../assets/premium-icon-heart-2589197.png" alt="">
-                                <img style="width: 35px; height: 35px;" (click)="complain()" class="complaint-icon" src="../../../../assets/free-icon-complaint-1997401.png" alt="">
+                                <img style="width: 35px; height: 35px;" class="heart-icon" src="../../../../assets/premium-icon-heart-2589054.png" alt="">
+                                <span>{{item.likedByIds.length}}</span>
                               </div>
                           </div>
                       </div>

@@ -1,0 +1,12 @@
+<li class="list-group-item mt-3 topic-card" style="width: 60%; height: 150px; margin-left: -25%;">
+        <div class="media-body order-2 order-lg-1">
+            <h2 class="font-weight-bold text-underline" style="font-size: 14px;">{{this.author.nickname}}</h2>
+            <p class="font-italic text-muted mb-0 fs-32" style="border: 1px solid black; padding: 5px 5px">{{this.comment.text}}</p>
+            <div class="d-flex align-items-center justify-content-between mt-1">
+                <h6 class="font-weight-bold my-2">{{this.comment.publicationDate | dateConverter: 'EEEE, MMMM d, y'}}</h6>
+                <div class="icons">
+                  <img style="width: 15px; height: 15px;" class="heart-icon" src="../../../../assets/free-icon-complaint-1997401.png" (click)="complain()" alt="">
+                </div>
+            </div>
+        </div>
+</li>

@@ -9,7 +9,7 @@ export class SearchTextPipe implements PipeTransform{
         if(localStorage.getItem('searchString') != null 
         && localStorage.getItem('searchString') != undefined
         && localStorage.getItem('searchString') != ''){
-            return value.filter(t => t.title.includes(localStorage.getItem('searchString')?.toLowerCase()));
+            return value.filter(t => t.title.toLowerCase().includes(localStorage.getItem('searchString')?.toLowerCase()));
         }
 
         return value;

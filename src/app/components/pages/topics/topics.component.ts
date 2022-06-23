@@ -15,7 +15,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class TopicsComponent implements OnInit {
   tags!: Tag[];
-  topics!: Topic[];
+  topics!: any[];
   selectedTagIds: number[];
   searchString!: string | null;
   tagId!: number;
@@ -60,7 +60,7 @@ export class TopicsComponent implements OnInit {
 
   getTopics(){
     this.topicService.getTopics().subscribe(
-      res => {
+      (res:any) => {
         this.topics = res;
       },
       error => console.log(error)
@@ -69,10 +69,10 @@ export class TopicsComponent implements OnInit {
 
   createBonds() {
     for (let i = 0; i < this.selectedTagIds.length; i++) {
-      let id = this.topics.find(t => this.topics.indexOf(t) == this.topics.length - 1)?.id ?? 0;
+      let id = this.topics.find(t => this.topics.indexOf(t) == this.topics.length - 1)?.id ?? 1;
 
       var body = {
-        TopicId: id! + 1, 
+        TopicId: id, 
         TagId: this.selectedTagIds[i]
       }
 
@@ -85,11 +85,6 @@ export class TopicsComponent implements OnInit {
         }
       );
     }
-  }
-
-  dateConverter(date: Date){
-    let pipe: DatePipe = new DatePipe('en-US');
-    return pipe.transform(date, 'EEEE, MMMM d, y');
   }
 
   createTopic(){
@@ -113,13 +108,5 @@ export class TopicsComponent implements OnInit {
 
   defineTagId(tagId: any){
     this.tagId = tagId;
-  }
-
-  like(){
-
-  }
-
-  complain(){
-
   }
 }

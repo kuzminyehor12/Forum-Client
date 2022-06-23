@@ -21,6 +21,9 @@ import { AuthInterceptor } from './services/auth.interceptor';
 import { SearchTextPipe } from './pipes/search-text.pipe';
 import { FilterWithTagsPipe } from './pipes/filter-tags.pipe';
 import { SortingPipe } from './pipes/sort-topics.pipe';
+import { DateConverterPipe } from './pipes/date-converter.pipe';
+import { ResponseCardComponent } from './components/shared/response-card/response-card.component';
+import { CommentCardComponent } from './components/shared/comment-card/comment-card.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { SortingPipe } from './pipes/sort-topics.pipe';
     TopicCardComponent,
     SearchTextPipe,
     FilterWithTagsPipe,
-    SortingPipe
+    SortingPipe,
+    DateConverterPipe,
+    ResponseCardComponent,
+    CommentCardComponent
   ],
   imports: [
     BrowserModule,

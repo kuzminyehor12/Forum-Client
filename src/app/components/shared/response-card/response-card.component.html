@@ -1,0 +1,48 @@
+<li style="width: 80%" class="list-group-item mt-3 topic-card">
+    <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+        <div class="media-body order-2 order-lg-1">
+            <h2 class="font-weight-bold my-2 text-underline">{{this.author.nickname}}</h2>
+            <p class="font-italic text-muted mb-0 fs-44">{{this.response.text}}</p>
+            <div class="d-flex align-items-center justify-content-between mt-1">
+                <h6 class="font-weight-bold my-2">{{this.response.publicationDate | dateConverter: 'EEEE, MMMM d, y'}}</h6>
+                <div class="icons">
+                    <ng-template [ngIf]="hasLike" [ngIfElse]="unliked">
+                        <img style="width: 35px; height: 35px;" class="heart-icon" src="../../../../assets/premium-icon-heart-2589054.png" (click)="removeLikeFromResponse()" alt="">
+                    </ng-template>
+                    <ng-template #unliked>
+                        <img style="width: 35px; height: 35px;" class="heart-icon" src="../../../../assets/premium-icon-heart-2589197.png" (click)="likeResponse()" alt="">
+                    </ng-template>
+                  <img style="width: 35px; height: 35px;" class="heart-icon" src="../../../../assets/free-icon-complaint-1997401.png" (click)="complainAboutResponse()" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</li>
+
+<div class="comments">
+    <a (click)="show = !show" style="margin-top: 1%" class="btn btn-primary btn-sm">Show Comments</a>
+    <ng-container *ngIf="this.userService.isLoggedIn">
+        <a (click)="readyToCreate = !readyToCreate"  class="btn btn-primary btn-sm" style="margin-left: 1%; margin-top: 1%">Write Comment</a>
+     </ng-container>
+</div>
+
+<ng-container *ngIf="show">
+    <div class="row" >
+        <div class="col-lg-8 mx-auto">
+            <ul class="list-group" *ngFor="let item of comments">
+                <app-comment-card [comment]="item"></app-comment-card>
+            </ul>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="readyToCreate">
+    <div>
+        <textarea [(ngModel)]="text" [ngModelOptions]="{standalone: true}" name="text" id="Text" cols="5" rows="3" class="form-control" style="width: 50%; margin-top: 1%;" placeholder="Comment Text"></textarea>
+        <div class="d-inline">
+            <button (click)="createComment()" class="btn btn-large btn-primary text-center" style="width: 7%; height: 25px; margin-left: 42%; font-size: 10px">Submit</button>
+        </div>
+    </div>   
+</ng-container>
+
+

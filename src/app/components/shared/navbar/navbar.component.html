@@ -21,7 +21,7 @@
                 <form class="d-flex">
                     <div class="input-group" style="width: 500px;">
                         <input [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" type="text" class="form-control" placeholder="Search Topic">
-                        <button type="button" (click)="writeSearchString()" class="btn btn-secondary"><img src="../../../../assets/free-icon-search-149852.png" alt="" width="25px" height="25px"></button>
+                        <button type="button" [routerLink]="['topics']" (click)="writeSearchString()" class="btn btn-secondary"><img src="../../../../assets/free-icon-search-149852.png" alt="" width="25px" height="25px"></button>
                     </div>
                 </form>
                 <ng-template [ngIf]="!this.service.isLoggedIn" [ngIfElse]="loggedOut">

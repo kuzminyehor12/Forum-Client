@@ -37,23 +37,27 @@ export class TopicService {
       AuthorId: authorId
     }
 
-    return this.httpClient.post(this.url, body, this.options).pipe<Topic>(catchError<any, Observable<Topic>>(this.error));
+    return this.httpClient.post(this.url, body, this.options).pipe(catchError<any, Observable<any>>(this.error));
   }
 
-  createBonds(body: Object){
-    return this.httpClient.post(this.url + 'tag', body, this.options).pipe<Topic>(catchError<any, Observable<Topic>>(this.error));
+  createBonds(body: any){
+    return this.httpClient.post(this.url + 'tag', body, this.options).pipe(catchError<any, Observable<any>>(this.error));
   }
 
-  getTopics() : Observable<Topic[]>{
-    return this.httpClient.get<Topic[]>(this.url, this.options);
+  getTopics(){
+    return this.httpClient.get(this.url, this.options);
   }
 
-  updateTopic(data: Topic) : Observable<Topic>{
-    return this.httpClient.put<Topic>(this.url, data, this.options).pipe<Topic>(catchError<any, Observable<Topic>>(this.error));
+  getTopicById(id: any){
+    return this.httpClient.get(this.url + id, this.options);
   }
 
-  deleteTopic(id: number, data: Topic) : Observable<Topic>{
-    return this.httpClient.delete<Topic>(this.url, this.options).pipe<Topic>(catchError<any, Observable<Topic>>(this.error));
+  updateTopic(data: any) : Observable<any>{
+    return this.httpClient.put(this.url, data, this.options).pipe(catchError<any, Observable<any>>(this.error));
+  }
+
+  deleteTopic(id: number, data: any) : Observable<Topic>{
+    return this.httpClient.delete(this.url, this.options).pipe(catchError<any, Observable<any>>(this.error));
   }
 
   error(error: HttpErrorResponse) {

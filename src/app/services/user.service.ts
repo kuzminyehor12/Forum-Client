@@ -23,6 +23,26 @@ export class UserService {
     ConfirmPassword: ['', Validators.required]
   });
 
+  getUsers(){
+    return this.httpClient.get(this.url, this.options);
+  }
+
+  getUserById(id: any){
+    return this.httpClient.get(this.url + id, this.options);
+  }
+
+  getUserByTopicId(topicId: any){
+    return this.httpClient.get(this.url + 'topic/' + topicId, this.options);
+  }
+
+  getUserByResponseId(responseId: any){
+    return this.httpClient.get(this.url + 'response/' + responseId, this.options);
+  }
+
+  getUserByCommentId(commentId: any){
+    return this.httpClient.get(this.url + 'comment/' + commentId, this.options);
+  }
+
   register(){
     var body = {
       Email: this.formModel.value.Email,
@@ -36,6 +56,48 @@ export class UserService {
 
   login(email: string, password: string){
     return this.httpClient.post(this.url + 'token', {Email: email, Password: password}, this.options);
+  }
+
+  likeTopic(body: any){
+    return this.httpClient.post(this.url + 'topic/like/add', body, this.options);
+  }
+
+  removeLikeTopic(b: any){
+    let options = {
+      headers: new HttpHeaders({ 
+        'Content-Type': 'application/json',
+      }),
+      body: b
+    }
+
+    return this.httpClient.delete(this.url + 'topic/like/remove', options);
+  }
+
+  likeResponse(body: any){
+    return this.httpClient.post(this.url + 'response/like/add', body, this.options);
+  }
+
+  removeLikeResponse(b: any){
+    let options = {
+      headers: new HttpHeaders({ 
+        'Content-Type': 'application/json',
+      }),
+      body: b
+    }
+    
+    return this.httpClient.delete(this.url + 'response/like/remove', options);
+  }
+
+  complainAboutTopic(topic: any){
+
+  }
+
+  complainAboutResponse(response: any){
+    
+  }
+
+  complainAboutComment(comment: any){
+    
   }
 
   passwordCorrection() : boolean{
