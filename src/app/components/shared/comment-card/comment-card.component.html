@@ -1,12 +1,26 @@
-<li class="list-group-item mt-3 topic-card" style="width: 60%; height: 150px; margin-left: -25%;">
+<li class="list-group-item mt-3 topic-card" style="width: 60%; height: 110px; margin-left: -25%;">
         <div class="media-body order-2 order-lg-1">
             <h2 class="font-weight-bold text-underline" style="font-size: 14px;">{{this.author.nickname}}</h2>
             <p class="font-italic text-muted mb-0 fs-32" style="border: 1px solid black; padding: 5px 5px">{{this.comment.text}}</p>
             <div class="d-flex align-items-center justify-content-between mt-1">
+              <ng-container *ngIf="this.userService.isLoggedIn && this.userService.isOwner(this.comment.authorId)">
+                <a (click)="readyToUpdate = !readyToUpdate"  class="btn btn-primary btn-small">Update</a>
+             </ng-container>
+             <ng-container *ngIf="this.userService.isModerator">
+              <a (click)="deleteComment()"  class="btn btn-primary btn-lg">Delete Comment</a>
+           </ng-container>
                 <h6 class="font-weight-bold my-2">{{this.comment.publicationDate | dateConverter: 'EEEE, MMMM d, y'}}</h6>
                 <div class="icons">
-                  <img style="width: 15px; height: 15px;" class="heart-icon" src="../../../../assets/free-icon-complaint-1997401.png" (click)="complain()" alt="">
+                  <img style="width: 25px; height: 25px;" class="heart-icon" src="../../../../assets/free-icon-complaint-1997401.png" (click)="complainAboutComment()" alt="">
+                  <span *ngIf="userService.isModerator">{{comment.complaints}}</span>
                 </div>
             </div>
         </div>
 </li>
+
+<ng-container *ngIf="readyToUpdate">
+      <textarea [(ngModel)]="text" [ngModelOptions]="{standalone: true}" name="text" id="Text" cols="5" rows="3" class="form-control" style="width: 50%; margin-top: 1%; margin-left: -25%;">textToUpdate</textarea>
+      <div class="d-inline">
+          <button (click)="updateComment()" class="btn btn-large btn-primary text-center" style="width: 9%; height: 25px; margin-left: 16%; font-size: 10px">Submit</button>
+      </div>  
+</ng-container>

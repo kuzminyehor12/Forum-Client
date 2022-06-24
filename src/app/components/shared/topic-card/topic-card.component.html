@@ -11,15 +11,19 @@
                             <ng-container *ngIf="this.userService.isLoggedIn">
                                 <a (click)="readyToCreate = true"  class="btn btn-primary btn-lg">Create Response</a>
                              </ng-container>
+                             <ng-container *ngIf="this.userService.isModerator">
+                                <a (click)="deleteTopic()"  class="btn btn-primary btn-lg">Delete Topic</a>
+                             </ng-container>
                              <h6 class="font-weight-bold my-2 text-underline">by {{this.author.nickname}}</h6>
                             <div class="icons">
-                                <ng-template [ngIf]="hasLike" [ngIfElse]="unliked">
+                                <ng-template [ngIf]="hasLike()" [ngIfElse]="unliked">
                                     <img style="width: 35px; height: 35px;" class="heart-icon" src="../../../../assets/premium-icon-heart-2589054.png" (click)="removeLikeFromTopic()" alt="">
                                 </ng-template>
                                 <ng-template #unliked>
                                     <img style="width: 35px; height: 35px;" class="heart-icon" src="../../../../assets/premium-icon-heart-2589197.png" (click)="likeTopic()" alt="">
                                 </ng-template>
                               <img style="width: 35px; height: 35px;" class="heart-icon" src="../../../../assets/free-icon-complaint-1997401.png" (click)="complainAboutTopic()" alt="">
+                              <span *ngIf="userService.isModerator">{{topic.complaints}}</span>
                             </div>
                         </div>
                     </div>

@@ -28,7 +28,7 @@ export class TopicService {
   })
 
   createTopic(){
-    let authorId: number = Number(JSON.parse(localStorage.getItem('user')!).Id);
+    let authorId = this.userService.getUser()?.Id;
 
     var body = {
       Title: this.form.value.Title,
@@ -53,11 +53,28 @@ export class TopicService {
   }
 
   updateTopic(data: any) : Observable<any>{
-    return this.httpClient.put(this.url, data, this.options).pipe(catchError<any, Observable<any>>(this.error));
+    return this.httpClient.put(this.url + data.id, data, this.options).pipe(catchError<any, Observable<any>>(this.error));
   }
 
-  deleteTopic(id: number, data: any) : Observable<Topic>{
-    return this.httpClient.delete(this.url, this.options).pipe(catchError<any, Observable<any>>(this.error));
+  deleteTopic(id: number) : Observable<Topic>{
+    return this.httpClient.delete(this.url + id, this.options).pipe(catchError<any, Observable<any>>(this.error));
+  }
+
+  complainAboutTopic(topic: any){
+    var body = {
+      Id: topic.id,
+      Title: topic.title,
+      Description: topic.description,
+      PublicationDate: topic.publicationDate,
+      TopicState: topic.topicState,
+      AuthorId: topic.authorId,
+      Complaints: Number(topic.complaints) + 1,
+      TopicTagIds: topic.topicTagIds,
+      ResponsesIds: topic.responsesIds,
+      LikedByIds: topic.likedByIds
+    }
+
+    return this.httpClient.put(this.url + topic.id + '/complain', body, this.options);
   }
 
   error(error: HttpErrorResponse) {

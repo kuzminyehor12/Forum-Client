@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,11 @@ export class ResponseService {
   private options = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
   readonly url: string = 'https://localhost:44341/api/responses/';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+    private userService: UserService) { }
 
   createResponse(text: string, topicId: any){
-    let authorId: number = Number(JSON.parse(localStorage.getItem('user')!).Id);
+    let authorId = this.userService.getUser()?.Id;
 
     var body = {
       Text: text,
@@ -37,12 +39,28 @@ export class ResponseService {
     return this.httpClient.get(this.url + 'topic/' + topicId, this.options);
   }
 
-  updateResponse(data: any) : Observable<any>{
-    return this.httpClient.put(this.url, data, this.options).pipe(catchError<any, Observable<any>>(this.error));
+  updateResponse(id: number, data: any) : Observable<any>{
+    return this.httpClient.put(this.url + id, data, this.options).pipe(catchError<any, Observable<any>>(this.error));
   }
 
-  deleteResponse(id: number, data: any) : Observable<any>{
-    return this.httpClient.delete(this.url, this.options).pipe(catchError<any, Observable<any>>(this.error));
+  deleteResponse(id: number) : Observable<any>{
+    return this.httpClient.delete(this.url + id, this.options).pipe(catchError<any, Observable<any>>(this.error));
+  }
+
+  complainAboutResponse(response: any){
+    var body = {
+      Id: response.id,
+      Text: response.text,
+      PublicationDate: response.publicationDate,
+      ResponseState: response.responseState,
+      TopicId: response.topicId,
+      AuthorId: response.authorId,
+      Complaints: Number(response.complaints) + 1,
+      CommentIds: response.commentIds,
+      LikedByIds: response.likedByIds
+    }
+
+    return this.httpClient.put(this.url + response.id + '/complain', body, this.options);
   }
 
   error(error: HttpErrorResponse) {

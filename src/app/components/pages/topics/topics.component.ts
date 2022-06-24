@@ -7,6 +7,7 @@ import { Topic } from 'src/app/models/topic.model';
 import { TagService } from 'src/app/services/tag.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { UserService } from 'src/app/services/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-topics',
@@ -89,18 +90,37 @@ export class TopicsComponent implements OnInit {
 
   createTopic(){
      if(this.topicService.form.invalid){
-      alert('You need to fulfil all fields of form!');
+      Swal.fire({
+        position: 'center',
+        title: 'Error',
+        text: 'You need to fulfil all fields of form!',
+        icon: 'error',
+        showCancelButton: false
+      });
      }
      else{
       this.topicService.createTopic().subscribe(
         res =>{
-          alert('Topic has been created successfully!');
+          window.location.reload();
+          Swal.fire({
+            position: 'center',
+            title: 'Success',
+            text: 'Topic has been created successfully!',
+            icon: 'success',
+            showCancelButton: false
+          });
           this.createBonds();
           this.clearTagIds();
         },
         error =>{
           console.log(error);
-          alert("There are some problems with creating your topic.");
+          Swal.fire({
+            position: 'center',
+            title: 'Error',
+            text: 'There are some problems with creating a topic',
+            icon: 'error',
+            showCancelButton: false
+          });
         } 
       )
      }

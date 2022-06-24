@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { CommentService } from 'src/app/services/comment.service';
 import { ResponseService } from 'src/app/services/response.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { UserService } from 'src/app/services/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-topic-card',
@@ -19,22 +20,20 @@ export class TopicCardComponent implements OnInit {
   text: string = '';
   id!: any;
   author: any = {};
-  currentUser: any = {};
   sorting: number = 0;
-  hasLike: boolean = false;
 
   constructor(private topicService: TopicService,
     private responseService: ResponseService,
     private commentService: CommentService,
     public userService: UserService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     this.getById(this.id);
     this.getResponsesByTopicId(this.id);
     this.getAuthor();
-    this.getUser();
     this.readyToCreate = false;
     this.sorting = 0;
   }
@@ -42,27 +41,28 @@ export class TopicCardComponent implements OnInit {
   createResponse(){
     this.responseService.createResponse(this.text, this.id).subscribe(
       res => {
-        alert("Response were successfully created!");
+        window.location.reload();
         this.readyToCreate = false;
+        Swal.fire({
+          position: 'center',
+          title: 'Success',
+          text: 'Response has been created successully!',
+          icon: 'error',
+          showCancelButton: false
+        });
       },
       err => {
-        alert("There were some problems with creating response!");
+        Swal.fire({
+          position: 'center',
+          title: 'Error',
+          text: 'There were some problems with creating response!',
+          icon: 'error',
+          showCancelButton: false
+        });
         console.log(err);
       }
     )
     
-  }
-
-  getUser(){
-    let userId: number = Number(JSON.parse(localStorage.getItem('user')!).Id);
-    this.userService.getUserById(userId).subscribe(
-      (res:any) => {
-        this.currentUser = res;
-      },
-      err => {
-         console.log(err);
-      }
-    )
   }
 
   getAuthor(){
@@ -98,8 +98,21 @@ export class TopicCardComponent implements OnInit {
     )
   }
 
+  hasLike(){
+    let userId: number = Number(this.userService.getUser()?.Id);
+
+    if(this.topic === null 
+      || this.topic === undefined
+      || !userId 
+      || Object.keys(this.topic).length === 0){
+        return false;
+    }
+
+    return this.topic.likedByIds.some((lb:any) => lb.userId == userId);
+  }
+
   likeTopic(){
-    let userId: number = Number(JSON.parse(localStorage.getItem('user')!).Id);
+    let userId: number = Number(this.userService.getUser()?.Id);
 
     var body = {
       TopicId: this.topic.id,
@@ -109,16 +122,23 @@ export class TopicCardComponent implements OnInit {
     this.userService.likeTopic(body).subscribe(
       res => {
         console.log(res);
-        this.hasLike = true;
+        window.location.reload();
       },
       err => {
+        Swal.fire({
+          position: 'top',
+          title: 'Error',
+          text: 'You cannot like any message! Authorize first.',
+          icon: 'error',
+          showCancelButton: false
+        });
         console.log(err);
       }
     )
   }
 
   removeLikeFromTopic(){
-    let userId: number = Number(JSON.parse(localStorage.getItem('user')!).Id);
+    let userId: number = Number(this.userService.getUser()?.Id);
 
     var body = {
       TopicId: this.topic.id,
@@ -128,7 +148,7 @@ export class TopicCardComponent implements OnInit {
     this.userService.removeLikeTopic(body).subscribe(
       res => {
         console.log(res);
-        this.hasLike = false;
+        window.location.reload();
       },
       err => {
         console.log(err);
@@ -137,6 +157,53 @@ export class TopicCardComponent implements OnInit {
   }
 
   complainAboutTopic(){
+    this.topicService.complainAboutTopic(this.topic).subscribe(
+      res => {
+        console.log(res);
+        window.location.reload();
+        Swal.fire({
+          position: 'top',
+          title: 'Success',
+          text: 'Your complaint has been sent successfully!',
+          icon: 'success',
+          showCancelButton: false
+        });
+      },
+      err => {
+        console.log(err);
+        Swal.fire({
+          position: 'top',
+          title: 'Error',
+          text: 'You cannot complain about topic! Authorize first.',
+          icon: 'error',
+          showCancelButton: false
+        });
+      }
+    )
+  }
 
+  deleteTopic(){
+    this.topicService.deleteTopic(this.topic.id).subscribe(
+      res => {
+        Swal.fire({
+          position: 'center',
+          title: 'Success',
+          text: 'Topic has been deleted succesfully!',
+          icon: 'success',
+          showCancelButton: false
+        });
+        this.router.navigate(['']);
+      },
+      err => {
+        Swal.fire({
+          position: 'center',
+          title: 'Error',
+          text: 'There are some problems with deleting topic!',
+          icon: 'error',
+          showCancelButton: false
+        });
+        console.log(err);
+      }
+    )
   }
 }

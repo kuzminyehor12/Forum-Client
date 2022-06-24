@@ -88,18 +88,6 @@ export class UserService {
     return this.httpClient.delete(this.url + 'response/like/remove', options);
   }
 
-  complainAboutTopic(topic: any){
-
-  }
-
-  complainAboutResponse(response: any){
-    
-  }
-
-  complainAboutComment(comment: any){
-    
-  }
-
   passwordCorrection() : boolean{
     let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
     return passwordRegex.test(this.formModel.get('Password')?.value!);
@@ -109,6 +97,37 @@ export class UserService {
     return this.formModel.get('Password')?.value === this.formModel.get('ConfirmPassword')?.value;
  }
 
+
+ getUser(){
+  const token = localStorage.getItem("token");
+
+  if(token == null || token == undefined){
+    return null;
+  }
+
+  let user = this.jwtHelperService.decodeToken(token!);
+
+  let userToken = {
+    Id: Number(user["certserialnumber"]), 
+    Nickname: user["unique_name"],
+    Email: user["email"], 
+    Role: user['role'],
+  }
+
+  return userToken;
+ }
+
+isOwner(id: number): boolean{
+  let user = this.getUser();
+
+  return user?.Id === id;
+ }
+
+ public get isModerator(): boolean{
+  let user = this.getUser();
+
+  return user?.Role === 'Moderator';
+ }
  
  public get isLoggedIn() : boolean{
   const token = localStorage.getItem("token");

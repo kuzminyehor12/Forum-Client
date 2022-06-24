@@ -1,6 +1,7 @@
 import { ɵparseCookieValue } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-navbar',
@@ -23,12 +24,24 @@ export class NavbarComponent implements OnInit {
       (res:any) => {
       console.log(res);
        localStorage.setItem('token', res.token);
-       localStorage.setItem('user', res.user);
-       alert('You`re logged in successfully.');
+       Swal.fire({
+        position: 'center',
+        title: 'Success',
+        text: 'You were logged in successfully.',
+        icon: 'success',
+        showCancelButton: false
+      })
       },
       err => {
         console.log(err);
-        alert('There was a problem with logging in you. Try again!');
+        Swal.fire({
+          position: 'center',
+          title: 'Error',
+          text: 'There are some problems with login.' +
+          'Maybe you need to register.',
+          icon: 'error',
+          showCancelButton: false
+        })
       }
     )
   }
@@ -38,23 +51,42 @@ export class NavbarComponent implements OnInit {
       (res:any) => {
           if(res){
             this.service.formModel.reset();
-            alert('You were registered successfully!\nLogin to enter the system.');
+            Swal.fire({
+              position: 'center',
+              title: 'Success',
+              text: 'You were registered successfully. Now you need to login to authorize!',
+              icon: 'success',
+              showCancelButton: false
+            });
           }
           else{
             console.log(res);
-            alert('There was a problem with registering you. Try again!');
+            Swal.fire({
+              position: 'center',
+              title: 'Error',
+              text: 'There are some problems with registering.' +
+              'Maybe you`re try to register existing account.',
+              icon: 'error',
+              showCancelButton: false
+            });
           }
       },
       err => {
         console.log(err);
-        alert('There was a problem with registering you. Try again!');
+        Swal.fire({
+          position: 'center',
+          title: 'Error',
+          text: 'There are some problems with registering.' +
+          'Maybe you`re try to register existing account.',
+          icon: 'error',
+          showCancelButton: false
+        });
       }
     );
   }
 
   logout() {
     localStorage.removeItem('token');
-    localStorage.removeItem('user');
   }
 
   writeSearchString(){
