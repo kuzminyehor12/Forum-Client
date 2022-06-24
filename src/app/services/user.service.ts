@@ -43,6 +43,18 @@ export class UserService {
     return this.httpClient.get(this.url + 'comment/' + commentId, this.options);
   }
 
+  getTopicsByUserId(id: any){
+    return this.httpClient.get(this.url + id + '/topics', this.options);
+  }
+
+  getResponsesByUserId(id: any){
+    return this.httpClient.get(this.url + id + '/responses', this.options);
+  }
+
+  getCommentsByUserId(id: any){
+    return this.httpClient.get(this.url + id + '/comments', this.options);
+  }
+
   register(){
     var body = {
       Email: this.formModel.value.Email,

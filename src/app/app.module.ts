@@ -7,7 +7,6 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { HomeComponent } from './components/pages/home/home.component';
 import { TopicsComponent } from './components/pages/topics/topics.component';
-import { ResponsesComponent } from './components/pages/responses/responses.component';
 import { TopicCardComponent } from './components/shared/topic-card/topic-card.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserService } from './services/user.service';
@@ -24,6 +23,9 @@ import { SortingPipe } from './pipes/sort-topics.pipe';
 import { DateConverterPipe } from './pipes/date-converter.pipe';
 import { ResponseCardComponent } from './components/shared/response-card/response-card.component';
 import { CommentCardComponent } from './components/shared/comment-card/comment-card.component';
+import { MyResponsesComponent } from './components/pages/my-responses/my-responses.component';
+import { MyTopicsComponent } from './components/pages/my-topics/my-topics.component';
+import { NoActivityPipe } from './pipes/no-activity.pipe';
 
 @NgModule({
   declarations: [
@@ -32,14 +34,16 @@ import { CommentCardComponent } from './components/shared/comment-card/comment-c
     FooterComponent,
     HomeComponent,
     TopicsComponent,
-    ResponsesComponent,
     TopicCardComponent,
     SearchTextPipe,
     FilterWithTagsPipe,
     SortingPipe,
     DateConverterPipe,
     ResponseCardComponent,
-    CommentCardComponent
+    CommentCardComponent,
+    MyResponsesComponent,
+    MyTopicsComponent,
+    NoActivityPipe
   ],
   imports: [
     BrowserModule,

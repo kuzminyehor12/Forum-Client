@@ -10,11 +10,13 @@
                     <a href="" class="nav-item nav-link active">Home</a>
                     <a href="topics" class="nav-item nav-link">Topics</a>
                     <div class="nav-item dropdown">
+                      <ng-container *ngIf="this.service.isLoggedIn">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">My Activity</a>
                         <div class="dropdown-menu bg-black nav-font">
                             <a href="myactivity/topics" class="dropdown-item">My Topics</a>
                             <a href="myactivity/responses" class="dropdown-item">My Responses</a>
                         </div>
+                      </ng-container>
                     </div>
                     <a href="about" class="nav-item nav-link">About</a>
                 </div>

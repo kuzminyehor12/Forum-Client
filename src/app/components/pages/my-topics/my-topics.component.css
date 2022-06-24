@@ -1,0 +1,28 @@
+.sort-left-btn{
+    margin-left: 5px;
+    background-color: rgb(208, 206, 205);
+    border-radius: 10px 0 0 10px !important;
+    border: 1px solid black;
+}
+
+.sort-right-btn{
+    background-color: rgb(208, 206, 205);
+    border-radius: 0 10px 10px 0!important;
+    border: 1px solid black;
+}
+
+.sort-hover:hover{
+    background-color: rgb(145, 143, 143);
+}
+
+.auth-btn-hover:hover{
+	background-color: #dd7003 !important;
+}
+
+.auth-btn-disabled:disabled{
+    background-color: #4b2602 !important;
+}
+
+.topic-card:hover{
+    background-color: rgb(197, 194, 194);
+}

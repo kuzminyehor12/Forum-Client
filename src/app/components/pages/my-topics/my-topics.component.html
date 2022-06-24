@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="row">
+        <div class="col-5" style="margin-top: 5%; margin-left: 37%;">
+            <a (click)="this.sorting = 1" class="btn sort-left-btn sort-hover">Sort By Publication Date</a>
+            <a (click)="this.sorting = 2" class="btn sort-right-btn sort-hover">Sort By Likes</a>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-8 mx-auto" style="margin-top: 2%;">
+          <ul class="list-group" *ngFor="let item of mytopics | searchPipe | sorted: this.sorting | noactivity: this.router">
+              <li [routerLink]="['/topics/' + item.id]" class="list-group-item mt-3 topic-card">
+                  <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                      <div class="media-body order-2 order-lg-1">
+                          <h2 class="mt-0 font-weight-bold mb-2">{{item.title}}</h2>
+                          <p class="font-italic text-muted mb-0 fs-44">{{item.description}}</p>
+                          <div class="d-flex align-items-center justify-content-between mt-1">
+                              <h6 class="font-weight-bold my-2">{{item.publicationDate | dateConverter: 'EEEE, MMMM d, y'}}</h6>
+                              <span>Responses Count: {{item.responsesIds.length}}</span>
+                              <div class="icons">
+                                <img style="width: 35px; height: 35px;" class="heart-icon" src="../../../../assets/premium-icon-heart-2589054.png" alt="">
+                                <span>{{item.likedByIds.length}}</span>
+                                <img style="width: 35px; height: 35px;" class="heart-icon" src="../../../../assets/free-icon-complaint-1997401.png" alt="">
+                                <span>{{item.complaints}}</span>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </li>
+          </ul>
+      </div>
+</div>
