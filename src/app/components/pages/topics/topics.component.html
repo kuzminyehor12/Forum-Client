@@ -14,7 +14,7 @@
     </div>
     <div class="row">
       <div class="col-lg-8 mx-auto">
-          <ul class="list-group" *ngFor="let item of topics | searchPipe | filterWithTags: this.tagId | sorted: this.sorting">
+          <ul class="list-group" *ngFor="let item of topics | searchPipe | filterWithTags: this.tagId | sorted: this.sorting | pagination: this.pageNumber : 8">
               <li [routerLink]="['/topics/' + item.id]" class="list-group-item mt-3 topic-card">
                   <div class="media align-items-lg-center flex-column flex-lg-row p-3">
                       <div class="media-body order-2 order-lg-1">
@@ -33,6 +33,13 @@
           </ul>
       </div>
 </div>
+
+<div class="container text-center">
+  <div class="btn-group text-center mt-5" role="group">
+    <button (click)="this.pageNumber = item" type="button" class="btn btn-secondary" style="border: 1px solid black;" *ngFor="let item of this.pages">{{item}}</button>
+  </div>
+</div>
+
 
 <div class="modal fade" id="topicModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">

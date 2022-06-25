@@ -21,13 +21,17 @@ export class TopicCardComponent implements OnInit {
   id!: any;
   author: any = {};
   sorting: number = 0;
+  pages!: any[];
+  pageNumber: number = 1;
 
   constructor(private topicService: TopicService,
     private responseService: ResponseService,
     private commentService: CommentService,
     public userService: UserService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router) { 
+      this.pages = [];
+    }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -91,6 +95,12 @@ export class TopicCardComponent implements OnInit {
     this.responseService.getResponseByTopicId(id).subscribe(
       (res: any) => {
         this.responses = res;
+
+        let length: number = this.responses.length;
+        for(let i = 1; length >= 1; i++){
+          this.pages.push(i);
+          length = length / 8;
+        }
       },
       err => {
         console.log(err);

@@ -39,7 +39,7 @@
 
 <div class="row" >
     <div class="col-lg-8 mx-auto">
-        <ul class="list-group" *ngFor="let item of responses | sorted: this.sorting">
+        <ul class="list-group" *ngFor="let item of responses | sorted: this.sorting | pagination : this.pageNumber : 8">
             <app-response-card [response]="item"></app-response-card>
         </ul>
 </div>
@@ -53,6 +53,12 @@
         </div>
     </div>   
 </ng-container>
+
+<div class="container text-center">
+    <div class="btn-group text-center mt-5" role="group">
+      <button (click)="this.pageNumber = item" type="button" class="btn btn-secondary" style="border: 1px solid black;" *ngFor="let item of this.pages">{{item}}</button>
+    </div>
+  </div>
 
 
 

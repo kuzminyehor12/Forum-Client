@@ -27,8 +27,8 @@ export class ResponseService {
     return this.httpClient.post(this.url, body, this.options).pipe<any>(catchError<any, Observable<any>>(this.error));
   }
 
-  getResponses(){
-    return this.httpClient.get(this.url, this.options);
+  getResponses(pageNumber: number){
+    return this.httpClient.get(this.url + "page/" + pageNumber, this.options);
   }
 
   getResponseById(id: any){

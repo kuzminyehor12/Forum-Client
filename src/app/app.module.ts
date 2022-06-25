@@ -26,6 +26,7 @@ import { CommentCardComponent } from './components/shared/comment-card/comment-c
 import { MyResponsesComponent } from './components/pages/my-responses/my-responses.component';
 import { MyTopicsComponent } from './components/pages/my-topics/my-topics.component';
 import { NoActivityPipe } from './pipes/no-activity.pipe';
+import { PaginationPipe } from './pipes/pagination.pipe';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { NoActivityPipe } from './pipes/no-activity.pipe';
     CommentCardComponent,
     MyResponsesComponent,
     MyTopicsComponent,
-    NoActivityPipe
+    NoActivityPipe,
+    PaginationPipe
   ],
   imports: [
     BrowserModule,

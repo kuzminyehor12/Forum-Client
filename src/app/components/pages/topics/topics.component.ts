@@ -21,11 +21,14 @@ export class TopicsComponent implements OnInit {
   searchString!: string | null;
   tagId!: number;
   sorting!: number;
+  pageNumber: number = 1;
+  pages!: number[];
 
   constructor(public topicService: TopicService, 
     public tagService: TagService, 
     public userService: UserService) { 
       this.selectedTagIds = new Array();
+      this.pages = [];
     }
 
   ngOnInit(): void {
@@ -63,6 +66,12 @@ export class TopicsComponent implements OnInit {
     this.topicService.getTopics().subscribe(
       (res:any) => {
         this.topics = res;
+
+        let length: number = this.topics.length;
+        for(let i = 1; length >= 1; i++){
+          this.pages.push(i);
+          length = length / 8;
+        }
       },
       error => console.log(error)
     )
