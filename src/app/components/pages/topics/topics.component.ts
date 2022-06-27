@@ -82,7 +82,7 @@ export class TopicsComponent implements OnInit {
       let id = this.topics.find(t => this.topics.indexOf(t) == this.topics.length - 1)?.id ?? 1;
 
       var body = {
-        TopicId: id, 
+        TopicId: id + 1, 
         TagId: this.selectedTagIds[i]
       }
 

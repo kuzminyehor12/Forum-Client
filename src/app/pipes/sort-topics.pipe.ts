@@ -3,20 +3,38 @@ import { Topic } from "../models/topic.model";
 
 @Pipe({
     name: "sorted",
-    pure: false
+    pure: true
 })
 export class SortingPipe implements PipeTransform{
-    transform(value: any[], sorting: number) {
-        switch (sorting) {
-            case 1:
-                return value.sort((t1, t2) => t2.publicationDate - t1.publicationDate);
-                break;
-            case 2:
-                return value.sort((t1, t2) => t2.likedByIds.length - t1.likedByIds.length);
-                break;
-            default:
-                return value;
-                break;
+    transform(value: any[], sorting: any) {
+        if(sorting === 1){
+            value.sort((a: any, b: any) => {
+                if (b.publicationDate < a.publicationDate) {
+                  return -1;
+                } else if (b > a) {
+                  return 1;
+                } else {
+                  return 0;
+                }
+              });
+
+            return value;
         }
+        
+        if(sorting === 2){
+            value.sort((a: any, b: any) => {
+                if (b.likedByIds.length < a.likedByIds.length) {
+                  return -1;
+                } else if (b > a) {
+                  return 1;
+                } else {
+                  return 0;
+                }
+              });
+              
+            return value;
+        }
+
+        return value;
     }
 }

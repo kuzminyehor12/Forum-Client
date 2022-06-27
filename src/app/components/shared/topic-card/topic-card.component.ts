@@ -51,7 +51,7 @@ export class TopicCardComponent implements OnInit {
           position: 'center',
           title: 'Success',
           text: 'Response has been created successully!',
-          icon: 'error',
+          icon: 'success',
           showCancelButton: false
         });
       },
