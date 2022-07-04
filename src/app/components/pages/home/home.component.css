@@ -83,3 +83,42 @@
 .card-hover h1:hover{
     text-decoration: underline;
 }
+
+@media(max-width: 991px) {
+    .grid-layout{
+        width: 80%;
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 244px 244px 244px 244px;
+        color: white;
+        margin-top: 5%;
+        margin-left: 9%;
+        gap: 5%;
+    }
+}
+
+@media(max-width: 661px) {
+    .grid-layout{
+        width: 80%;
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 189px 189px 189px 189px;
+        color: white;
+        margin-top: 5%;
+        margin-left: 9%;
+        gap: 5%;
+    }
+}
+
+@media(max-width: 391px) {
+    .grid-layout{
+        width: 80%;
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 150px 150px 150px 150px;
+        color: white;
+        margin-top: 5%;
+        margin-left: 9%;
+        gap: 5%;
+    }
+}

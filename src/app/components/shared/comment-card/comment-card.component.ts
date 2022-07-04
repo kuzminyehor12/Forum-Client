@@ -74,7 +74,6 @@ export class CommentCardComponent implements OnInit {
 
     this.commentService.updateComment(this.comment.id, body).subscribe(
       (res:any) => {
-        window.location.reload();
         Swal.fire({
           position: 'center',
           title: 'Succes',
@@ -82,6 +81,7 @@ export class CommentCardComponent implements OnInit {
           icon: 'success',
           showCancelButton: false
         });
+        window.location.reload();
       },
       err => {
         Swal.fire({
@@ -106,6 +106,7 @@ export class CommentCardComponent implements OnInit {
           icon: 'success',
           showCancelButton: false
         });
+        window.location.reload();
       },
       err => {
         Swal.fire({

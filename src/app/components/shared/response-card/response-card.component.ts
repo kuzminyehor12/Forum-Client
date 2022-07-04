@@ -179,7 +179,6 @@ getCommentsById(){
 
     this.responseService.updateResponse(this.response.id, body).subscribe(
       (res:any) => {
-        window.location.reload();
         Swal.fire({
           position: 'center',
           title: 'Success',
@@ -187,6 +186,7 @@ getCommentsById(){
           icon: 'success',
           showCancelButton: false
         });
+        window.location.reload();
       },
       err => {
         Swal.fire({
@@ -204,7 +204,6 @@ getCommentsById(){
   deleteResponse(){
     this.responseService.deleteResponse(this.response.id).subscribe(
       res => {
-        window.location.reload();
         Swal.fire({
           position: 'center',
           title: 'Success',
@@ -212,6 +211,7 @@ getCommentsById(){
           icon: 'success',
           showCancelButton: false
         });
+        window.location.reload();
       },
       err => {
         Swal.fire({

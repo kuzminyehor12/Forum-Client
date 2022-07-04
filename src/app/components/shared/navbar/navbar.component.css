@@ -14,3 +14,69 @@
 .auth-btn-disabled:disabled{
     background-color: #4b2602 !important;
 }
+
+@media(max-width: 991px) {
+    .media{
+        display: none;
+    }
+
+    .media-input{
+        margin-top: 1%;
+        margin-bottom: 1%;
+    }
+
+    .media-btn{
+        margin-top: 1%;
+        margin-bottom: 1%;
+    }
+
+    .media-logo{
+        margin-top: 2%;
+        margin-left: 90%;
+        width: 250px;
+    }
+}
+
+@media(max-width: 661px) {
+    .media{
+        display: none;
+    }
+
+    .media-input{
+        margin-top: 1%;
+        margin-bottom: 1%;
+    }
+
+    .media-btn{
+        margin-top: 1%;
+        margin-bottom: 1%;
+    }
+
+    .media-logo{
+        margin-top: 2%;
+        margin-left: 2%;
+        width: 200px;
+    }
+}
+
+@media(max-width: 391px) {
+    .media{
+        display: none;
+    }
+
+    .media-input{
+        margin-top: 1%;
+        margin-bottom: 1%;
+    }
+
+    .media-btn{
+        margin-top: 1%;
+        margin-bottom: 1%;
+        margin-right: 40%;
+    }
+
+    .media-logo{
+        margin-top: 1%;
+        width: 200px;
+    }
+}

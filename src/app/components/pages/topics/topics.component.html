@@ -1,12 +1,12 @@
-x<div class="container">
+<div class="container">
     <div class="row">
-        <div class="tags col-4">
+        <div class="tags col-4 media-div">
             <a (click)="defineTagId(item.id)"class="btn tag-btn text-center tag-hover" *ngFor="let item of tags">{{item.name}}</a>
         </div>
         <div class="col-3"></div>
         <div class="col-5" style="margin-top: 10%">
           <ng-container *ngIf="this.userService.isLoggedIn">
-            <a href="#topicModal"  data-bs-toggle="modal" data-bs-target="#topicModal" class="btn btn-primary">Create Topic</a>
+            <a href="#topicModal"  data-bs-toggle="modal" data-bs-target="#topicModal" class="btn btn-primary media-btn">Create Topic</a>
           </ng-container>
             <a (click)="this.sorting = 1" class="btn sort-left-btn sort-hover">Sort By Publication Date</a>
             <a (click)="this.sorting = 2" class="btn sort-right-btn sort-hover">Sort By Likes</a>
@@ -35,7 +35,7 @@ x<div class="container">
 </div>
 
 <div class="container text-center">
-  <div class="btn-group text-center mt-5" role="group">
+  <div class="btn-group text-center mt-4" style="margin-bottom: -15%;" role="group">
     <button (click)="this.pageNumber = item" type="button" class="btn btn-secondary" style="border: 1px solid black;" *ngFor="let item of this.pages">{{item}}</button>
   </div>
 </div>

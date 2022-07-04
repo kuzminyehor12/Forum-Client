@@ -1,5 +1,5 @@
-<li class="list-group-item mt-3 topic-card" style="width: 60%; height: 110px; margin-left: -25%;">
-        <div class="media-body order-2 order-lg-1">
+<li class="list-group-item mt-3 topic-card" style="width: 60%; height: 120px; margin-left: -25%;">
+        <div class="media-div media-body order-2 order-lg-1">
             <h2 class="font-weight-bold text-underline" style="font-size: 14px;">{{this.author.nickname}}</h2>
             <p class="font-italic text-muted mb-0 fs-32" style="border: 1px solid black; padding: 5px 5px">{{this.comment.text}}</p>
             <div class="d-flex align-items-center justify-content-between mt-1">
@@ -7,7 +7,7 @@
                 <a (click)="readyToUpdate = !readyToUpdate"  class="btn btn-primary btn-small">Update</a>
              </ng-container>
              <ng-container *ngIf="this.userService.isModerator">
-              <a (click)="deleteComment()"  class="btn btn-primary btn-lg">Delete Comment</a>
+              <a (click)="deleteComment()"  class="btn btn-primary btn-small">Delete</a>
            </ng-container>
                 <h6 class="font-weight-bold my-2">{{this.comment.publicationDate | dateConverter: 'EEEE, MMMM d, y'}}</h6>
                 <div class="icons">
@@ -19,7 +19,7 @@
 </li>
 
 <ng-container *ngIf="readyToUpdate">
-      <textarea [(ngModel)]="text" [ngModelOptions]="{standalone: true}" name="text" id="Text" cols="5" rows="3" class="form-control" style="width: 50%; margin-top: 1%; margin-left: -25%;">textToUpdate</textarea>
+      <textarea [(ngModel)]="textToUpdate" [ngModelOptions]="{standalone: true}" name="text" id="Text" cols="5" rows="3" class="form-control" style="width: 50%; margin-top: 1%; margin-left: -25%;">textToUpdate</textarea>
       <div class="d-inline">
           <button (click)="updateComment()" class="btn btn-large btn-primary text-center" style="width: 9%; height: 25px; margin-left: 16%; font-size: 10px">Submit</button>
       </div>  

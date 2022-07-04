@@ -1,4 +1,4 @@
-<li style="width: 80%" class="list-group-item mt-3 topic-card">
+<li style="width: 80%" class="media-div list-group-item mt-3 topic-card">
     <div class="media align-items-lg-center flex-column flex-lg-row p-3">
         <div class="media-body order-2 order-lg-1">
             <h2 class="font-weight-bold my-2 text-underline">{{this.author.nickname}}</h2>
@@ -28,7 +28,7 @@
 </li>
 
 <div class="comments">
-    <a (click)="show = !show" style="margin-top: 1%" class="btn btn-primary btn-sm">Show Comments <span>({{this.response.commentIds.length}})</span></a>
+    <a (click)="show = !show" style="margin-top: 1%" class="btn btn-primary btn-sm media-btn">Show Comments <span>({{this.response.commentIds.length}})</span></a>
     <ng-container *ngIf="this.userService.isLoggedIn">
         <a (click)="readyToCreate = !readyToCreate"  class="btn btn-primary btn-sm" style="margin-left: 1%; margin-top: 1%">Write Comment</a>
      </ng-container>
@@ -46,7 +46,7 @@
 <ng-container *ngIf="show">
     <div class="row" >
         <div class="col-lg-8 mx-auto">
-            <ul class="list-group" *ngFor="let item of comments">
+            <ul class="media-ul list-group" *ngFor="let item of comments">
                 <app-comment-card [comment]="item"></app-comment-card>
             </ul>
         </div>

@@ -7,7 +7,7 @@
     </div>
     <div class="row">
       <div class="col-lg-8 mx-auto" style="margin-top: 2%;">
-          <ul class="list-group" *ngFor="let item of mytopics | searchPipe | sorted: this.sorting | noactivity: this.router">
+          <ul class="list-group" *ngFor="let item of mytopics | searchPipe | sorted: this.sorting | noactivity: this.router ">
               <li [routerLink]="['/topics/' + item.id]" class="list-group-item mt-3 topic-card">
                   <div class="media align-items-lg-center flex-column flex-lg-row p-3">
                       <div class="media-body order-2 order-lg-1">
@@ -29,3 +29,4 @@
           </ul>
       </div>
 </div>
+  

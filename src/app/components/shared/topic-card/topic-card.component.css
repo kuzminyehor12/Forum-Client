@@ -20,3 +20,20 @@
 .text-underline:hover{
     text-decoration: underline;
 }
+
+@media(max-width: 991px) {
+    .media-div{
+        width: 80%;
+        margin-left: 2%;
+    }
+}
+
+@media(max-width: 661px) {
+    
+}
+
+@media(max-width: 391px) {
+    .media-div{
+        width: 100%;
+    }
+}

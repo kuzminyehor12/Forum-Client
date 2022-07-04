@@ -1,3 +1,27 @@
 .text-underline:hover{
     text-decoration: underline;
 }
+
+@media(max-width: 991px) {
+    .media-div{
+        margin-left: 10%;
+    }
+
+    .media-btn{
+        margin-left: 10%;
+    }
+
+    .media-ul{
+        margin-left: 20%;
+    }
+}
+
+@media(max-width: 661px) {
+    
+}
+
+@media(max-width: 391px) {
+    .media-div{
+        margin-left: 15%;
+    }
+}
