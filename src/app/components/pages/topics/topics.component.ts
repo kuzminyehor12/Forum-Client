@@ -110,6 +110,8 @@ export class TopicsComponent implements OnInit {
      else{
       this.topicService.createTopic().subscribe(
         res =>{
+          this.createBonds();
+          this.clearTagIds();
           window.location.reload();
           Swal.fire({
             position: 'center',
@@ -118,8 +120,6 @@ export class TopicsComponent implements OnInit {
             icon: 'success',
             showCancelButton: false
           });
-          this.createBonds();
-          this.clearTagIds();
         },
         error =>{
           console.log(error);
